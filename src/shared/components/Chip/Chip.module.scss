@@ -1,0 +1,26 @@
+@use "../../../shared/styles/colors";
+@use "../../../shared/styles/fonts";
+
+.root {
+  text-align: center;
+  display: inline-block;
+  border-radius: 1rem;
+  background-color: map-get(colors.$bg, "light");
+  border: map-get(colors.$border, "normal");
+  cursor: pointer;
+  input {
+    display: none;
+  }
+  label {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.5rem 0.8rem;
+    border-radius: 1rem;
+    color: white;
+    @include fonts.paragraph--m;
+  }
+};
+
+input:checked ~ label {
+  background-color: map-get(colors.$success, "strong");
+}

@@ -1,0 +1,16 @@
+@use "../../../shared/styles/colors";
+
+.root {
+  text-align: center;
+  .button {
+    background-color: map-get(colors.$brand, "main--normal");
+    padding: 0.5rem 0.8rem;
+    border-radius: 1rem;
+    color: white;
+    &[disabled] {
+      pointer-events: none;
+      background-color: map-get(colors.$brand, "main--light");
+    }
+  }
+};
+

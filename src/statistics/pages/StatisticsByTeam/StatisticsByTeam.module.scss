@@ -1,0 +1,145 @@
+@use "../../../shared/styles/fonts";
+@use "../../../shared/styles/colors";
+
+.root {
+  display: grid;
+  grid-template-areas: 
+    "filters statisticsByTeam"
+  ;
+  grid-template-columns: fit-content(10rem) 1fr;
+}
+
+.aside {
+  grid-area: filters;
+  background-color: map-get(colors.$bg , "light");
+  padding: 2rem 1rem;
+  fieldset {
+    width: max-content;
+    padding: 1rem;
+    @include fonts.subtitle;
+  }
+  label {
+    @include fonts.paragraph--l;
+  }
+}
+
+.checkbox_container {
+  margin-bottom: 1rem;
+}
+
+.statisticsByTeam {
+  grid-area: statisticsByTeam;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 75rem;
+  padding: 4rem 2rem;
+  .team {
+    margin-bottom: 2rem;
+    > span {
+      @include fonts.subtitle;
+      font-weight: bold;
+    }
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 1rem;
+    &__players {
+      display: flex;
+      flex-flow: row nowrap;
+    }
+    &__player {
+      padding: 0rem 1rem;
+      @include fonts.paragraph--l;
+      &:not(:last-child) {
+        border-right: 1px solid white;
+      }
+    }
+  }
+  .game_types {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    flex-flow: row wrap;
+    gap: 1rem;
+    margin-bottom: 5rem;
+  }
+
+  .team_data {
+    table.statistics {
+      margin-bottom: 2rem;
+      width: 100%;
+      tbody {
+        td[data-rating-type-name], td[data-percentages] {
+          padding-top: 0.2rem;
+          padding-bottom: 0.2rem;
+        } 
+        td[data-rating-type-name] {
+          width: 1%;
+          padding-right: 1rem;
+          white-space: nowrap;
+          @include fonts.paragraph--m;
+        }
+        td[data-percentages] {
+          .games_bar {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 0.4rem;
+            @include fonts.paragraph--s;
+            .games_bar__wins, .games_bar__losses {
+              text-align: center;
+              padding: 0.3rem 0.2rem;
+            }
+            .games_bar__wins {
+              border-top-left-radius: 0.4rem;
+              border-bottom-left-radius: 0.4rem;
+              background-color: map-get(colors.$success, "strong");
+            }
+            .games_bar__losses {
+              border-top-right-radius: 0.4rem;
+              border-bottom-right-radius: 0.4rem;
+              background-color: map-get(colors.$error, "strong");
+            }
+          }
+        }
+      }
+    }
+
+    table.matches {
+      width: 100%;
+      text-align: left;
+      td, th {
+        padding: 1rem;
+      }     
+      thead {
+        @include fonts.paragraph--l;
+      }
+      tbody {
+        @include fonts.paragraph--m;
+        tr:nth-child(2n + 1) {
+          background-color: map-get(colors.$bg, "light");
+          td {
+            width: 25%;
+          }
+          td:first-child {
+            border-top-left-radius: 1rem;
+            border-bottom-left-radius: 1rem;
+          }
+          td:last-child {
+            border-top-right-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+          }
+          td[data-ranked], td[data-number-players], td[data-won] {
+            width: 1%;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+    .no_matches_filtered {
+      @include fonts.subtitle;
+      font-weight: bold;
+    }
+  }
+}

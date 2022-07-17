@@ -1,0 +1,15 @@
+@mixin title {
+  font-size: 3rem;
+}
+@mixin subtitle {
+  font-size: 2.4rem;
+}
+@mixin paragraph--l {
+  font-size: 1.6rem;
+}
+@mixin paragraph--m {
+  font-size: 1.4rem;
+}
+@mixin paragraph--s {
+  font-size: 1.2rem;
+}
