@@ -173,7 +173,7 @@ const StatisticsByTeam = () => {
   
   const { isLoading, isFetching, data: teamStatistics, refetch } = useQuery<TeamStatisticsResponse>(
     ["matches", ...Object.keys(filters.players.filters) ],
-    () => fetch(`http://localhost:4000/aoeNet/players/matches?playersIds=${params.get(`players_ids`)}`).then(res => res.json()),
+    () => fetch(`${process.env.REACT_APP_API}/aoeNet/players/matches?playersIds=${params.get(`players_ids`)}`).then(res => res.json()),
     {
       enabled: !!playersIdsParams,
       keepPreviousData: true
