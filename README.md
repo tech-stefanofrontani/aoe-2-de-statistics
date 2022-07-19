@@ -13,7 +13,7 @@ npm start
 1. Hacer cambios en el repo.
 2. Pushear cambios.
 3. Mergear a main.
-4. Entrar al [https://my.vultr.com/subs/?id=3b718400-9355-45be-9e8b-7ac345cb95fa](servidor VPS en my.vultr.com) a través de la terminal usando ssh usando las credenciales que aparecen ahi `root` y `IP Address`.
+4. Entrar al [servidor VPS en my.vultr.com](https://my.vultr.com/subs/?id=3b718400-9355-45be-9e8b-7ac345cb95fa) a través de la terminal usando ssh usando las credenciales que aparecen ahi `root` y `IP Address`.
 
 *cmd:*
 ```
@@ -59,3 +59,7 @@ sudo cp -a ./build/. /var/www/html
 ```
 systemctl restart nginx
 ```
+
+## Diseño en figma
+
+[Diseño](https://www.figma.com/file/h73ioKGz0U0OnCXkI1kwSI/aoe-2-de-statistics?node-id=0%3A1)
