@@ -25,6 +25,11 @@
 
 .checkbox_container {
   margin-bottom: 1rem;
+  div {
+    label {
+      text-transform: capitalize;
+    }
+  }
 }
 
 .statisticsByTeam {
