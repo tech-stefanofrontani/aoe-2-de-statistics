@@ -1,101 +1,25 @@
-import { access } from 'fs';
-import React, { useRef, useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import { Button } from '../../../shared/components/Button/Button';
 import { Checkbox } from '../../../shared/components/Checkbox/Checkbox';
 import { Chip } from '../../../shared/components/Chip/Chip';
 import { Loader } from '../../../shared/components/Loader/Loader';
 import { Player } from '../../types/Player';
+import { players, ratingTypes } from '../../constants';
+import { useAfterFirstRenderEffect } from '../../../shared/hooks';
 import styles from './StatisticsByTeam.module.scss';
-
-const useAfterFirstRenderEffect = (func: any, deps: any) => {
-  const didMount = useRef(false);
-
-  useEffect(() => {
-      if (didMount.current) func();
-      else didMount.current = true;
-  }, deps);
-}
-
-
-const matches = [
-  { ranked: null, rating_type: "2", players: [{}] },
-  { ranked: true, rating_type: "3", players: [{}] },
-  { ranked: true, rating_type: "1", players: [{}] },
-  { ranked: null, rating_type: "1", players: [{}] },
-  { ranked: null, rating_type: "3", players: [{}] },
-]
-
-const players: Player[] = [
-  { steamId: "76561198370388153", name: "banana" },
-  { steamId: "76561199191745935", name: "bruno" },
-  { steamId: "76561198356913423", name: "conde" },
-  { steamId: "76561199092441496", name: "condefer" },
-  { steamId: "76561199040101522", name: "facu" },
-  { steamId: "76561199045023149", name: "fede" },
-  { steamId: "76561198825714051", name: "pose" },
-  { steamId: "76561199097618949", name: "tano" },
-  { steamId: "76561199189617164", name: "tinki" },
-  { steamId: "76561198399492656", name: "vicen" },
-];
-
-const ratingTypes = [
-  {
-    id: 2,
-    label: "1v1 Random Map"
-  },
-  {
-    id: 4,
-    label: "Team Random Map"
-  },
-  {
-    id: 5,
-    label: "1v1 Random Map Quick Play"
-  },
-  {
-    id: 6,
-    label: "Team Random Map Quick Play"
-  },
-  {
-    id: 1,
-    label: "1v1 Death Match"
-  },
-  {
-    id: 3,
-    label: "Team Death Match"
-  },
-  {
-    id: 13,
-    label: "1v1 Empire Wars"
-  },
-  {
-    id: 7,
-    label: "1v1 Empre Wars Quick Play"
-  },
-  {
-    id: 14,
-    label: "Team Empire Wars"
-  },
-  {
-    id: 8,
-    label: "Team Empre Wars Quick Play"
-  },
-  {
-    id: 9,
-    label: "Battle Royale Quick Play"
-  },
-] as const;
 
 interface FilterKey {
   [key: string]: FilterValue
 }
+
 interface FilterValue {
   label: string,
   checked: boolean
 }
 
-type FilterTypes = /* "ranked" | "ratingTypes" */  |  "players";
+type FilterTypes = "players";
 
 interface FilterType {
   valid: boolean,
@@ -106,8 +30,6 @@ interface FilterType {
 type IFilters = {
   [key in FilterTypes]: FilterType
 }
-
-type IPlayer = {}
 
 type Match = {
   players: Player[],
@@ -146,11 +68,11 @@ const StatisticsByTeam = () => {
       ...acc,
       [curr.id]: {
         ...curr,
-        checked: !ratingTypesParams ? true : !!foundRatingType
+        checked: !ratingTypesParams ? true : !!(foundRatingType || foundRatingType == 0) 
       }
     }}, {})
   );
-    
+
   const [formValid, setFormValid] = useState(false);
   const [filters, setFilters] = useState<IFilters>((() => {
     return {
